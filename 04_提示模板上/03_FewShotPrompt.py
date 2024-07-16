@@ -44,9 +44,9 @@ print(prompt.format(flower_type="野玫瑰", occasion="爱情"))
 
 # 4. 把提示传递给大模型
 import os
-os.environ["OPENAI_API_KEY"] = '你的OpenAI API Key'
+os.environ["OPENAI_API_KEY"] = 'openai key'
 from langchain.llms import OpenAI
-model = OpenAI(model_name='text-davinci-003')
+model = OpenAI(model_name='gpt-3.5-turbo-instruct')
 result = model(prompt.format(flower_type="野玫瑰", occasion="爱情"))
 print(result)
 

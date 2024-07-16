@@ -13,7 +13,10 @@ from langchain_community.document_loaders import Docx2txtLoader
 from langchain_community.document_loaders import TextLoader
 
 # 加载Documents
-base_dir = '02_文档QA系统/OneFlower' # 文档的存放目录
+# base_dir = '02_文档QA系统/OneFlower' # 文档的存放目录
+# base_dir = '.\\OneFlower' # 文档的存放目录
+dirName = os.path.abspath(os.path.dirname(__file__))
+base_dir = os.path.join(dirName, r"OneFlower")
 documents = []
 for file in os.listdir(base_dir): 
     # 构建完整的文件路径

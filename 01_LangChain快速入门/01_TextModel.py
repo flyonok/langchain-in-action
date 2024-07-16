@@ -24,6 +24,7 @@ client = OpenAI()
 
 response = client.completions.create(
   model="gpt-3.5-turbo-instruct",
+  # model = "gpt-4o",
   temperature=0.5,
   max_tokens=100,
   prompt="请给我的花店起个名")
