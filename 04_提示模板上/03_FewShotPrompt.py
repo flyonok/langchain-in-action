@@ -44,7 +44,7 @@ print(prompt.format(flower_type="野玫瑰", occasion="爱情"))
 
 # 4. 把提示传递给大模型
 import os
-os.environ["OPENAI_API_KEY"] = 'openai key'
+os.environ["OPENAI_API_KEY"] = 'openai-key'
 from langchain.llms import OpenAI
 model = OpenAI(model_name='gpt-3.5-turbo-instruct')
 result = model(prompt.format(flower_type="野玫瑰", occasion="爱情"))
@@ -52,15 +52,31 @@ print(result)
 
 # 5. 使用示例选择器
 from langchain.prompts.example_selector import SemanticSimilarityExampleSelector
-from langchain.vectorstores import Qdrant
+from langchain.vectorstores import Qdrant, FAISS
 from langchain.embeddings import OpenAIEmbeddings
+from qdrant_client import QdrantClient
+qdrant_client = QdrantClient(
+url="https://0b4a8c3c-47a7-404d-8eab-935b039cd56a.us-east4-0.gcp.cloud.qdrant.io:6333",
+api_key="kOeq52ZaROk-Fi1hgvsMRjsbLU5VrOgr09y_WWE7IBEjaHDKxo_N5A",
+)
+embedings = OpenAIEmbeddings()
+# qdrant = Qdrant(qdrant_client, 'FewShotPromptTemplat', embedings)
 
 # 初始化示例选择器
+# example_selector = SemanticSimilarityExampleSelector.from_examples(
+#     samples,
+#     embedings,
+#     Qdrant,
+#     vectorstore_kwargs={'client':qdrant_client, 'collection_name':'FewShotPromptTemplat', 'emgeddings':embedings},
+#     k=1,
+# )
+
 example_selector = SemanticSimilarityExampleSelector.from_examples(
     samples,
-    OpenAIEmbeddings(),
-    Qdrant,
-    k=1
+    embedings,
+    FAISS,
+    # vectorstore_kwargs={'client':qdrant_client, 'collection_name':'FewShotPromptTemplat', 'emgeddings':embedings},
+    k=1,
 )
 
 # 创建一个使用示例选择器的FewShotPromptTemplate对象
