@@ -11,9 +11,11 @@ import os
 
 # 创建模型实例
 from langchain import OpenAI
+# from langchain_openai import OpenAI
 # from langchain.chat_models import ChatOpenAI
 model = OpenAI(model_name='gpt-3.5-turbo-instruct')
 # model = ChatOpenAI(model_name='gpt-4')
+# model = OpenAI(model_name='gpt-4-turbo')
 
 # ------Part 2
 # 创建一个空的DataFrame用于存储结果
@@ -66,13 +68,18 @@ for flower, price in zip(flowers, prices):
 
     # 获取模型的输出
     output = model(input)
-
+    print(output)
     # 解析模型的输出
-    parsed_output = output_parser.parse(output)
-    parsed_output_dict = parsed_output.dict()  # 将Pydantic格式转换为字典
+    try:
+        parsed_output = output_parser.parse(output)
+        parsed_output_dict = parsed_output.dict()  # 将Pydantic格式转换为字典
 
-    # 将解析后的输出添加到DataFrame中
-    df.loc[len(df)] = parsed_output.dict()
+        # 将解析后的输出添加到DataFrame中
+        df.loc[len(df)] = parsed_output.dict()
+        print(f'ok {flower} and {price}')
+    except Exception as e:
+        print(str(e))
+        continue
 
 # 打印字典
 print("输出的数据：", df.to_dict(orient='records'))
