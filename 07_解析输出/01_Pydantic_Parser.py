@@ -57,18 +57,18 @@ prompt = PromptTemplate.from_template(prompt_template,
        partial_variables={"format_instructions": format_instructions}) 
 
 # 打印提示
-print("提示：", prompt)
+# print("提示：", prompt)
 
 # ------Part 5
 for flower, price in zip(flowers, prices):
     # 根据提示准备模型的输入
     input = prompt.format(flower=flower, price=price)
     # 打印提示
-    print("提示：", input)
+    # print("提示：", input)
 
     # 获取模型的输出
     output = model(input)
-    print(output)
+    
     # 解析模型的输出
     try:
         parsed_output = output_parser.parse(output)
@@ -77,8 +77,9 @@ for flower, price in zip(flowers, prices):
         # 将解析后的输出添加到DataFrame中
         df.loc[len(df)] = parsed_output.dict()
         print(f'ok {flower} and {price}')
+        print(output)
     except Exception as e:
-        print(str(e))
+        # print(str(e))
         continue
 
 # 打印字典

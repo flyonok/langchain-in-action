@@ -31,8 +31,8 @@ bad_response = '{"action": "search"}'
 # parser.parse(bad_response) # 如果直接解析，它会引发一个错误
 
 # 设置OpenAI API密钥
-import os
-os.environ["OPENAI_API_KEY"] = 'Your OpenAI API Key'
+# import os
+# os.environ["OPENAI_API_KEY"] = 'Your OpenAI API Key'
 
 # 尝试用OutputFixingParser来解决这个问题
 from langchain.output_parsers import OutputFixingParser
