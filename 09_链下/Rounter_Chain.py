@@ -5,8 +5,9 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # 设置OpenAI API密钥
-import os
-os.environ["OPENAI_API_KEY"] = 'Your Key'
+from dotenv import load_dotenv  # 用于加载环境变量
+load_dotenv()  # 加载 .env 文件中的环境变量
+
 
 # 构建两个场景的模板
 flower_care_template = """
@@ -37,7 +38,11 @@ prompt_infos = [
 
 # 初始化语言模型
 from langchain.llms import OpenAI
-llm = OpenAI()
+# llm = OpenAI()
+llm = OpenAI(temperature=0.5,
+    model_name="gpt-3.5-turbo-instruct"
+    # model_name="gpt-4-turbo"
+)
 
 # 构建目标链
 from langchain.chains.llm import LLMChain
