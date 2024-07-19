@@ -12,6 +12,9 @@ from langchain.agents import AgentType
 from langchain.llms import OpenAI
 from langchain.tools import Tool
 from langchain.chains import LLMMathChain
+import langchain
+# langchain.debug = True
+langchain.verbose = True
 
 # 初始化大模型
 llm = OpenAI(temperature=0)
