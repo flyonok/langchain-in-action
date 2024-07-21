@@ -1,6 +1,6 @@
 # 设置OpenAI的API密钥
-import os
-os.environ["OPENAI_API_KEY"] = 'Your OpenAI Key'
+from dotenv import load_dotenv  # 用于加载环境变量
+load_dotenv()  # 加载 .env 文件中的环境变量
 
 # 初始化Embedding类
 from langchain.embeddings import OpenAIEmbeddings
@@ -19,4 +19,5 @@ print(len(embeddings), len(embeddings[0]))
 
 # Embed查询
 embedded_query = embeddings_model.embed_query("刚才对话中的订单号是多少?")
-print(embedded_query[:3])
+# print(embedded_query[:3])
+print(len(embedded_query))
